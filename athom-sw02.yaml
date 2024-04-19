@@ -82,9 +82,14 @@ binary_sensor:
         #then:
           #- light.toggle: light2
       - timing:
-          - ON for at least 2s
+          - ON for at most 0.5s
+          - OFF for at least 0.2s
         then:
-          - light.toggle: light2
+          - light.toggle: light1
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: Reset
           #- homeassistant.service:
               #service: switch.toggle
               #data: 

@@ -75,11 +75,19 @@ binary_sensor:
         pullup: true
     name: "Button2"
     disabled_by_default: true
-    on_click:
-      max_length: 0.5s
-      then:
-        - light.toggle: light2
-
+    on_multi_click:
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at least 0.2s
+        then:
+          - light.toggle: light2
+      - timing:
+          - ON for at least 2s
+        then:
+          - homeassistant.service:
+              service: switch.toggle
+              data: 
+                entity_id: switch.model_3_charger
 sensor:
   - platform: uptime
     name: "Uptime Sensor"
